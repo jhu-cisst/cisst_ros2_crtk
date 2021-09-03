@@ -18,6 +18,7 @@ http://www.cisst.org/cisst/license.txt.
 
 #include <cisst_ros2_crtk/mts_ros_crtk_bridge.h>
 
+#include <cisstCommon/cmnStrings.h>
 #include <cisstMultiTask/mtsManagerComponentServices.h>
 
 // conversion methods
@@ -588,7 +589,7 @@ void mts_ros_crtk_bridge::add_connection_event_handler(const mtsDescriptionConne
 
 void mts_ros_crtk_bridge::clean_namespace(std::string & _ros_namespace)
 {
-    // _ros_namespace = ros::names::clean(_ros_namespace);
+    cmnStringReplaceAll(_ros_namespace, "//", "/");
     std::replace(_ros_namespace.begin(), _ros_namespace.end(), ' ', '_');
     std::replace(_ros_namespace.begin(), _ros_namespace.end(), '-', '_');
     std::replace(_ros_namespace.begin(), _ros_namespace.end(), '.', '_');
