@@ -58,7 +58,7 @@ install (
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
-  INCLUDES DESTINATION include/${PROJECT_NAME}
+  INCLUDES DESTINATION include
   )
 ament_export_targets (cisst_ros2_crtk HAS_LIBRARY_TARGET)
 
