@@ -5,7 +5,7 @@
   Author(s):  Anton Deguet
   Created on: 2020-03-24
 
-  (C) Copyright 2020-2021 Johns Hopkins University (JHU), All Rights Reserved.
+  (C) Copyright 2020-2022 Johns Hopkins University (JHU), All Rights Reserved.
 
 --- begin cisst license - do not edit ---
 
@@ -21,9 +21,10 @@ http://www.cisst.org/cisst/license.txt.
 #include <cisst_ros2_bridge/mtsROSToCISST.h>
 
 void mtsROSToCISST(const crtk_msgs::msg::OperatingState & rosData,
-                   prmOperatingState & cisstData)
+                   prmOperatingState & cisstData,
+                   std::shared_ptr<rclcpp::Node> node)
 {
-    mtsROSToCISSTHeader(rosData, cisstData);
+    mtsROSToCISSTHeader(rosData, cisstData, node);
     try {
         cisstData.State() = prmOperatingState::StateTypeFromString(rosData.state);
     } catch (...) {
@@ -34,7 +35,8 @@ void mtsROSToCISST(const crtk_msgs::msg::OperatingState & rosData,
 }
 
 void mtsROSToCISST(const crtk_msgs::msg::StringStamped & rosData,
-                   std::string & cisstData)
+                   std::string & cisstData,
+                   std::shared_ptr<rclcpp::Node>)
 {
     cisstData = rosData.string;
 }

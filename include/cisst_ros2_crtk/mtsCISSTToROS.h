@@ -5,7 +5,7 @@
   Author(s):  Anton Deguet
   Created on: 2020-03-24
 
-  (C) Copyright 2020-2021 Johns Hopkins University (JHU), All Rights Reserved.
+  (C) Copyright 2020-2022 Johns Hopkins University (JHU), All Rights Reserved.
 
 --- begin cisst license - do not edit ---
 
@@ -28,18 +28,24 @@ http://www.cisst.org/cisst/license.txt.
 #include <crtk_msgs/msg/string_stamped.hpp>
 #include <crtk_msgs/srv/trigger_operating_state.hpp>
 
+// ros include
+#include <rclcpp/rclcpp.hpp>
+
 // crtk_msgs
 bool mtsCISSTToROS(const prmOperatingState & cisstData,
                    crtk_msgs::msg::OperatingState & rosData,
+                   std::shared_ptr<rclcpp::Node>,
                    const std::string & debugInfo);
 
 bool mtsCISSTToROS(const std::string & cisstData,
                    crtk_msgs::msg::StringStamped & rosData,
+                   std::shared_ptr<rclcpp::Node>,
                    const std::string & debugInfo);
 
 // crtk_srvs
 bool mtsCISSTToROS(const prmOperatingState & cisstData,
                    crtk_msgs::srv::TriggerOperatingState::Response & rosData,
+                   std::shared_ptr<rclcpp::Node>,
                    const std::string & debugInfo);
 
 #endif // _mtsCISSTToROS_CRTK_h
