@@ -29,13 +29,16 @@ include_directories (include)
 
 # header
 set (HEADER_FILES
-  include/cisst_ros2_crtk/mts_ros_crtk_bridge.h
+  include/cisst_ros2_crtk/cisst_ros_crtk.h
+  include/cisst_ros2_crtk/mts_ros_crtk_bridge.h # for backward compatibility
+  include/cisst_ros2_crtk/mts_ros_crtk_bridge_provided.h
   include/cisst_ros2_crtk/mtsCISSTToROS.h
   include/cisst_ros2_crtk/mtsROSToCISST.h)
 
 # source
 set (SOURCE_FILES
-  src/mts_ros_crtk_bridge.cpp
+  src/cisst_ros_crtk.cpp
+  src/mts_ros_crtk_bridge_provided.cpp
   src/mtsCISSTToROS.cpp
   src/mtsROSToCISST.cpp)
 
