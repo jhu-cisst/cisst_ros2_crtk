@@ -47,7 +47,7 @@ public:
       doesn't impact the ROS publish rates.  There is no reason to
       change the default for most applications. */
     mts_ros_crtk_bridge_provided(const std::string & _component_name,
-                        std::shared_ptr<rclcpp::Node> node,
+                        std::shared_ptr<rclcpp::Node> _node_handle_ptr,
                         const double _period_in_seconds = 5.0 * cmn_ms);
     mts_ros_crtk_bridge_provided(const mtsTaskPeriodicConstructorArg & arg);
 

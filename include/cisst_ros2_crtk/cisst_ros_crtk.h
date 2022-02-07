@@ -40,6 +40,10 @@ namespace cisst_ros_crtk {
       "measures_js" */
     void get_crtk_command(const std::string & _full_command,
                           std::string & _crtk_command);
+
+    /*! Dummy ROS init for bridge components created using dynamic
+      creation and no access to argc and argv. */
+    std::shared_ptr<rclcpp::Node> ros_init(const std::string & name);
 }
 
 #endif // _cisst_ros_crtk_h

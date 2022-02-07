@@ -32,25 +32,18 @@ http://www.cisst.org/cisst/license.txt.
 CMN_IMPLEMENT_SERVICES_DERIVED_ONEARG(mts_ros_crtk_bridge_provided, mtsTaskPeriodic, mtsTaskPeriodicConstructorArg);
 
 mts_ros_crtk_bridge_provided::mts_ros_crtk_bridge_provided(const std::string & _component_name,
-                                         std::shared_ptr<rclcpp::Node> _node_handle,
+                                         std::shared_ptr<rclcpp::Node> _node_handle_ptr,
                                          const double _period_in_seconds):
     mtsTaskPeriodic(_component_name, _period_in_seconds),
-    m_node_handle_ptr(_node_handle)
+    m_node_handle_ptr(_node_handle_ptr)
 {
     init();
 }
 
 mts_ros_crtk_bridge_provided::mts_ros_crtk_bridge_provided(const mtsTaskPeriodicConstructorArg & arg):
-    mtsTaskPeriodic(arg)
+    mtsTaskPeriodic(arg),
+    m_node_handle_ptr(cisst_ros_crtk::ros_init(arg.Name))
 {
-    // create fake argc/argv for ros::init
-    typedef char * char_pointer;
-    char_pointer * argv = new char_pointer[1];
-    argv[0]= new char[strlen(arg.Name.c_str()) + 1];
-    strcpy(argv[0], arg.Name.c_str());
-    int argc = 1;
-    rclcpp::init(argc, argv);
-    m_node_handle_ptr = std::make_shared<rclcpp::Node>(arg.Name);
     init();
 }
 
