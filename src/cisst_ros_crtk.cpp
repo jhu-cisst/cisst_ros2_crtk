@@ -40,12 +40,14 @@ void cisst_ros_crtk::get_crtk_command(const std::string & _full_command,
 
 std::shared_ptr<rclcpp::Node> cisst_ros_crtk::ros_init(const std::string & name)
 {
-    // create fake argc/argv for ros::init
-    typedef char * char_pointer;
-    char_pointer * argv = new char_pointer[1];
-    argv[0]= new char[name.size() + 1];
-    strcpy(argv[0], name.c_str());
-    int argc = 1;
-    rclcpp::init(argc, argv);
+    if (!rclcpp::ok()) {
+        // create fake argc/argv for ros::init
+        typedef char * char_pointer;
+        char_pointer * argv = new char_pointer[1];
+        argv[0]= new char[name.size() + 1];
+        strcpy(argv[0], name.c_str());
+        int argc = 1;
+        rclcpp::init(argc, argv);
+    }
     return std::make_shared<rclcpp::Node>(name);
 }

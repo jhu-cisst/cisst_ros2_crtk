@@ -37,6 +37,7 @@ mts_ros_crtk_bridge_required::mts_ros_crtk_bridge_required(const std::string & _
 mts_ros_crtk_bridge_required::mts_ros_crtk_bridge_required(const mtsTaskPeriodicConstructorArg & arg):
     mtsROSBridge(arg.Name, arg.Period, cisst_ros_crtk::ros_init(arg.Name))
 {
+    PerformsSpin(true);
     init();
 }
 
@@ -71,6 +72,7 @@ void mts_ros_crtk_bridge_required::ConfigureJSON(const Json::Value & _json_confi
 
 void mts_ros_crtk_bridge_required::Run(void)
 {
+    mtsROSBridge::Run();
     ProcessQueuedCommands();
     ProcessQueuedEvents();
 }
@@ -114,8 +116,6 @@ void mts_ros_crtk_bridge_required::populate_interface_provided(const std::string
                                                                const std::vector<std::string> & _read_commands,
                                                                const std::vector<std::string> & _write_events)
 {
-    std::cerr << "--------------------\ninterface: " << _interface_name << std::endl;
-
     // clean ROS namespace
     std::string _clean_namespace = _ros_namespace;
     cisst_ros_crtk::clean_namespace(_clean_namespace);
@@ -130,7 +130,6 @@ void mts_ros_crtk_bridge_required::populate_interface_provided(const std::string
 
     // write commands, using event bridge for low latence
     for (auto & _command :  _write_commands) {
-        std::cerr << "w cmd: " << _command << std::endl;
         // get the CRTK command so we know which template type to use
         cisst_ros_crtk::get_crtk_command(_command, _crtk_command);
         _ros_topic = _clean_namespace + _command;
