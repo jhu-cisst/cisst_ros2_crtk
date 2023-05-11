@@ -37,3 +37,20 @@ void mtsROSToCISST(const crtk_msgs::msg::StringStamped & rosData,
 {
     cisstData = rosData.string;
 }
+
+void mtsROSToCISST(const crtk_msgs::srv::QueryForwardKinematics::Request & rosData,
+                   prmForwardKinematicsRequest & cisstData)
+{
+    cisstData.jp().SetSize(rosData.jp.size());
+    std::copy(rosData.jp.begin(), rosData.jp.end(),
+              cisstData.jp().begin());
+}
+
+void mtsROSToCISST(const crtk_msgs::srv::QueryInverseKinematics::Request & rosData,
+                   prmInverseKinematicsRequest & cisstData)
+{
+    cisstData.jp().SetSize(rosData.jp.size());
+    std::copy(rosData.jp.begin(), rosData.jp.end(),
+              cisstData.jp().begin());
+    mtsROSPoseToCISST(rosData.cp, cisstData.cp());
+}

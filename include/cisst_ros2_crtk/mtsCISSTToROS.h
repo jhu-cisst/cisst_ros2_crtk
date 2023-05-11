@@ -22,11 +22,15 @@ http://www.cisst.org/cisst/license.txt.
 
 // cisst include
 #include <cisstParameterTypes/prmOperatingState.h>
+#include <cisstParameterTypes/prmForwardKinematicsResponse.h>
+#include <cisstParameterTypes/prmInverseKinematicsResponse.h>
 
 // crtk
 #include <crtk_msgs/msg/operating_state.hpp>
 #include <crtk_msgs/msg/string_stamped.hpp>
 #include <crtk_msgs/srv/trigger_operating_state.hpp>
+#include <crtk_msgs/srv/query_forward_kinematics.hpp>
+#include <crtk_msgs/srv/query_inverse_kinematics.hpp>
 
 // ros include
 #include <rclcpp/rclcpp.hpp>
@@ -43,6 +47,12 @@ void mtsCISSTToROS(const std::string & cisstData,
 // crtk_srvs
 void mtsCISSTToROS(const prmOperatingState & cisstData,
                    crtk_msgs::srv::TriggerOperatingState::Response & rosData,
+                   const std::string & debugInfo);
+void mtsCISSTToROS(const prmForwardKinematicsResponse & cisstData,
+                   crtk_msgs::srv::QueryForwardKinematics::Response & rosData,
+                   const std::string & debugInfo);
+void mtsCISSTToROS(const prmInverseKinematicsResponse & cisstData,
+                   crtk_msgs::srv::QueryInverseKinematics::Response & rosData,
                    const std::string & debugInfo);
 
 #endif // _mtsCISSTToROS_CRTK_h
