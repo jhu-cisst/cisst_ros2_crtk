@@ -5,7 +5,7 @@
   Author(s):  Anton Deguet
   Created on: 2020-03-24
 
-  (C) Copyright 2020-2022 Johns Hopkins University (JHU), All Rights Reserved.
+  (C) Copyright 2020-2023 Johns Hopkins University (JHU), All Rights Reserved.
 
 --- begin cisst license - do not edit ---
 
@@ -20,45 +20,36 @@ http://www.cisst.org/cisst/license.txt.
 #include <cisst_ros2_bridge/mtsCISSTToROS.h>
 
 template <typename _ros_operating_state>
-bool mtsCISSTToROSOperatingState(const prmOperatingState & cisstData,
+void mtsCISSTToROSOperatingState(const prmOperatingState & cisstData,
                                  _ros_operating_state & rosData,
-                                 std::shared_ptr<rclcpp::Node> node,
-                                 const std::string & debugInfo)
+                                 const std::string &)
 {
-    if (mtsCISSTToROSHeader(cisstData, rosData, node, debugInfo)) {
-        try {
-            rosData.state = prmOperatingState::StateTypeToString(cisstData.State());
-        } catch (...) {
-            rosData.state = "UNDEFINED";
-        }
-        rosData.is_homed = cisstData.IsHomed();
-        rosData.is_busy = cisstData.IsBusy();
-        return true;
+    try {
+        rosData.state = prmOperatingState::StateTypeToString(cisstData.State());
+    } catch (...) {
+        rosData.state = "UNDEFINED";
     }
-    return false;
+    rosData.is_homed = cisstData.IsHomed();
+    rosData.is_busy = cisstData.IsBusy();
 }
 
-bool mtsCISSTToROS(const prmOperatingState & cisstData,
+void mtsCISSTToROS(const prmOperatingState & cisstData,
                    crtk_msgs::msg::OperatingState & rosData,
-                   std::shared_ptr<rclcpp::Node> node,
                    const std::string & debugInfo)
 {
-    return mtsCISSTToROSOperatingState(cisstData, rosData, node, debugInfo);
+    mtsCISSTToROSOperatingState(cisstData, rosData, debugInfo);
 }
 
-bool mtsCISSTToROS(const std::string & cisstData,
+void mtsCISSTToROS(const std::string & cisstData,
                    crtk_msgs::msg::StringStamped & rosData,
-                   std::shared_ptr<rclcpp::Node>,
                    const std::string &)
 {
     rosData.string = cisstData;
-    return true;
 }
 
-bool mtsCISSTToROS(const prmOperatingState & cisstData,
+void mtsCISSTToROS(const prmOperatingState & cisstData,
                    crtk_msgs::srv::TriggerOperatingState::Response & rosData,
-                   std::shared_ptr<rclcpp::Node> node,
                    const std::string & debugInfo)
 {
-    return mtsCISSTToROSOperatingState(cisstData, rosData.operating_state, node, debugInfo);
+    mtsCISSTToROSOperatingState(cisstData, rosData.operating_state, debugInfo);
 }
