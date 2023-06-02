@@ -362,8 +362,8 @@ void mts_ros_crtk_bridge_provided::bridge_interface_provided(const std::string &
                                                                   std_msgs::msg::Bool>
                     (_required_interface_name, _command, _ros_topic);
             } else if (_crtk_command == "servo_ci") {
-                m_subscribers_bridge->AddSubscriberToCommandWrite<prmCartesianImpedanceGains,
-                                                                  cisst_msgs::msg::CartesianImpedanceGains>
+                m_subscribers_bridge->AddSubscriberToCommandWrite<prmCartesianImpedance,
+                                                                  crtk_msgs::msg::CartesianImpedance>
                     (_required_interface_name, _command, _ros_topic);
             }
         }
