@@ -60,6 +60,8 @@ void mts_ros_crtk_bridge_provided::init(void)
                     {"servo_jf", "prmForceTorqueJointSet"},
                     {"servo_cp", "prmPositionCartesianSet"},
                     {"servo_cr", "prmPositionCartesianSet"},
+                    {"servo_jv", "prmVelocityJointSet"},
+                    {"servo_cv", "prmVelocityCartesianSet"},
                     {"move_cp", "prmPositionCartesianSet"},
                     {"move_cr", "prmPositionCartesianSet"},
                     {"servo_cf", "prmForceCartesianSet"},
@@ -328,6 +330,13 @@ void mts_ros_crtk_bridge_provided::bridge_interface_provided(const std::string &
                                                                       sensor_msgs::msg::JointState>
                         (_required_interface_name, _command, _ros_topic);
                 }
+            } else  if (_crtk_command == "servo_jv") {
+                if (argument_type_is_expected(_crtk_command,
+                                              _interface_provided->GetCommandWriteArgumentServices(_command)->GetName())) {
+                    m_subscribers_bridge->AddSubscriberToCommandWrite<prmVelocityJointSet,
+                                                                      sensor_msgs::msg::JointState>
+                        (_required_interface_name, _command, _ros_topic);
+                }
             } else  if (_crtk_command == "servo_jf") {
                 if (argument_type_is_expected(_crtk_command,
                                               _interface_provided->GetCommandWriteArgumentServices(_command)->GetName())) {
@@ -343,6 +352,13 @@ void mts_ros_crtk_bridge_provided::bridge_interface_provided(const std::string &
                                               _interface_provided->GetCommandWriteArgumentServices(_command)->GetName())) {
                     m_subscribers_bridge->AddSubscriberToCommandWrite<prmPositionCartesianSet,
                                                                       geometry_msgs::msg::PoseStamped>
+                        (_required_interface_name, _command, _ros_topic);
+                }
+            } else if (_crtk_command == "servo_cv") {
+                if (argument_type_is_expected(_crtk_command,
+                                              _interface_provided->GetCommandWriteArgumentServices(_command)->GetName())) {
+                    m_subscribers_bridge->AddSubscriberToCommandWrite<prmVelocityCartesianSet,
+                                                                      geometry_msgs::msg::TwistStamped>
                         (_required_interface_name, _command, _ros_topic);
                 }
             } else if (_crtk_command == "servo_cf") {
