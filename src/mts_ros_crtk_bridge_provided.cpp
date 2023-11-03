@@ -74,7 +74,8 @@ void mts_ros_crtk_bridge_provided::init(void)
                     {"setpoint_cp_array", "prmPositionCartesianArrayGet"},
                     {"measured_cv", "prmVelocityCartesianGet"},
                     {"measured_cf", "prmForceCartesianGet"},
-                    {"operating_state", "prmOperatingState"}};
+                    {"operating_state", "prmOperatingState"},
+                    {"crtk_version", "mtsStdString"}};
 
     // component manager interface
     mtsInterfaceRequired * required = EnableDynamicComponentManagement();
@@ -455,6 +456,13 @@ void mts_ros_crtk_bridge_provided::bridge_interface_provided(const std::string &
                                               _interface_provided->GetCommandReadArgumentServices(_command)->GetName())) {
                     m_subscribers_bridge->AddServiceFromCommandRead<prmOperatingState,
                                                                     crtk_msgs::srv::TriggerOperatingState>
+                        (_required_interface_name, _command, _ros_topic);
+                }
+            } else if (_crtk_command == "crtk_version") {
+                if (argument_type_is_expected(_crtk_command,
+                                              _interface_provided->GetCommandReadArgumentServices(_command)->GetName())) {
+                    m_subscribers_bridge->AddServiceFromCommandRead<std::string,
+                                                                    std_srvs::srv::Trigger>
                         (_required_interface_name, _command, _ros_topic);
                 }
             } else if (_crtk_command == "period_statistics") {
