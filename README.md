@@ -1,5 +1,1 @@
-
-Dynamic loading:
-```sh
-sawSensablePhantomQtExample -j sawSensablePhantomDefault.json -m ~/catkin_ws/src/cisst-saw/cisst-ros/cisst_ros_crtk/examples/sensable/manager-ros-default.json
-```
+:warning: The content of this repository has been ported to `cisst-ros`.  This repository is preserved for the dVRK 2.2.x releases.
